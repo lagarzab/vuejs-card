@@ -1,12 +1,12 @@
 <template>
-    <div class='card--container'>
-        <div>
+    <div class='card--container' :style='cardStyle'>
+        <div :style='headerStyle'>
             <slot name='header'></slot>
         </div>
-        <div>
+        <div class='default' :style='contentStyle'>
             <slot name='default'></slot>
         </div>
-        <div>
+        <div :style='footerStyle'>
             <slot name='footer'></slot>
         </div>
     </div>
@@ -14,18 +14,46 @@
 
 <script>
 export default {
-    name: 'card'
+    name: 'card',
+    props: {
+        height: {
+            type: Number,
+            default: 350
+        },
+        width: {
+            type: Number,
+            default: 250
+        },
+        headerStyle: {
+            type: String,
+            default: ''
+        },
+        contentStyle: {
+            type: String,
+            default: ''
+        },
+        footerStyle: {
+            type: String,
+            default: ''
+        }
+    },
+    computed: {
+        cardStyle () {
+            return {
+                'height': this.height + 'px',
+                'width': this.width + 'px'
+            }
+        }
+    }
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
     .card--container {
         display: inline-flex;
         flex-direction: column;
         justify-content: space-between;
         position: relative;
-        height: 350px;
-        width: 250px;
         padding: 4px;
         margin: 5px;
         text-align: center;
@@ -35,8 +63,7 @@ export default {
     .card--container footer{
         vertical-align: bottom;
     }
-
-    .card--container div:first-of-type {
+    .card--container .default {
         flex: 1 0 auto;
         display:flex;
         flex-direction: column;

@@ -26,10 +26,6 @@ export default {
             type: Number,
             default: 250
         },
-        blurReverse: {
-            type: Boolean,
-            default: false
-        },
         link: {
             type: [ String, Boolean],
             default: false
@@ -45,6 +41,10 @@ export default {
         footerStyle: {
             type: String,
             default: ''
+        },
+        blurReverse: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {

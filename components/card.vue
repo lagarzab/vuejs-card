@@ -9,6 +9,8 @@
         <div :style='footerStyle'>
             <slot name='footer'></slot>
         </div>
+        <a v-if='link' :href='link'><div class='hover--layer'></div></a>
+        <div v-else class='hover--layer'></div>
     </div>
 </template>
 
@@ -24,6 +26,10 @@ export default {
             type: Number,
             default: 250
         },
+        blurReverse: {
+            type: Boolean,
+            default: false
+        },
         headerStyle: {
             type: String,
             default: ''
@@ -38,12 +44,22 @@ export default {
         }
     },
     computed: {
+        alphaCardHover () {
+            return this.blurReverse ? '0' : '.5'
+        },
+        alphaCardStill () {
+            return this.blurReverse ? '.5' : '0'
+        },
         cardStyle () {
             return {
                 'height': this.height + 'px',
                 'width': this.width + 'px'
             }
         }
+    },
+    created () {
+        document.documentElement.style.setProperty('--card-alpha-still', this.alphaCardStill)
+        document.documentElement.style.setProperty('--card-alpha-hover', this.alphaCardHover)
     }
 }
 </script>
@@ -69,5 +85,16 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-content: center;
+    }
+    .hover--layer {
+        position: absolute;
+        left:0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(169, 169, 169, var(--card-alpha-still));
+    }
+    .hover--layer:hover {
+        background-color: rgba(169, 169, 169, var(--card-alpha-hover));
     }
 </style>

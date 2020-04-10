@@ -30,6 +30,10 @@ export default {
             type: Boolean,
             default: false
         },
+        link: {
+            type: [ String, Boolean],
+            default: false
+        },
         headerStyle: {
             type: String,
             default: ''
